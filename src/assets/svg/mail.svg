@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="20px" viewBox="0 0 24 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 55.2 (78181) - https://sketchapp.com -->
+    <title>Fill 1</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="UI-/-Footer-/-Dark" transform="translate(-911.000000, -280.000000)" fill="#FFFFFF">
+            <g id="Footer">
+                <g id="Newsletter" transform="translate(840.000000, 190.000000)">
+                    <path d="M92.6,94.8 L83,100.8 L73.4,94.8 L73.4,92.4 L83,98.4 L92.6,92.4 L92.6,94.8 Z M92.6,90 L73.4,90 C72.08,90 71.012,91.08 71.012,92.4 L71,106.8 C71,108.12 72.08,109.2 73.4,109.2 L92.6,109.2 C93.92,109.2 95,108.12 95,106.8 L95,92.4 C95,91.08 93.92,90 92.6,90 L92.6,90 Z" id="Fill-1"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
