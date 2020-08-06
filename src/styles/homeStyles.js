@@ -19,7 +19,7 @@ export const StyledBanner = styled.div`
   }
 `
 
-export const BackgroundImage = styled.div`
+export const BackgroundImage = styled(motion.div)`
   position: absolute;
   display: flex;
   justify-content: center;
