@@ -4,8 +4,8 @@ import { useGlobalStateContext } from "../context/globalContext"
 
 const CustomCursor = ({ navigationOpen }) => {
   const [mousePosition, setMousePosition] = useState({
-    x: 100,
-    y: 72,
+    x: 0,
+    y: 0,
   })
 
   const { cursorStyle, cursorPink } = useGlobalStateContext()

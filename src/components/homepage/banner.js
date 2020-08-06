@@ -12,45 +12,57 @@ import { useGlobalStateContext } from "../../context/globalContext"
 import backgroundImage from "../../assets/png/background1.png"
 
 const Banner = () => {
-  let canvas = useRef(null)
+  let canvasRef = useRef(null)
   const size = useWindowSize()
   const { currentTheme } = useGlobalStateContext()
 
   const handleCanvas = () => {
-    let bottomCanvas = canvas.current
-    let topCanvas = bottomCanvas.cloneNode()
-    let bottomCanvasCtx = bottomCanvas.getContext("2d")
-    let topCanvasCtx = topCanvas.getContext("2d")
-    bottomCanvasCtx.globalCompositeOperation = "source-over"
-    bottomCanvasCtx.fillStyle = "#ffffff"
-    bottomCanvasCtx.fillRect(0, 0, size.width, size.height)
+    let canvas = canvasRef.current
+    let ctx = canvas.getContext("2d")
+    ctx.fillStyle = "#ffffff"
+    ctx.fillRect(0, 0, ctx.canvas.width, ctx.canvas.height)
     let onCanvas = false
     let savedX, savedY
-    bottomCanvas.addEventListener("mouseover", e => {
+    let bounds = canvas.getBoundingClientRect()
+
+    canvas.addEventListener("mouseenter", e => {
       onCanvas = true
-      savedX = e.pageX - bottomCanvas.offsetLeft
-      savedY = e.pageY - bottomCanvas.offsetTop
+      savedX = e.pageX - bounds.left
+      savedX /= bounds.width
+      savedX *= canvas.width
+      savedY = e.pageY - bounds.top
+      savedY /= bounds.height
+      savedY *= canvas.height
     })
-    bottomCanvas.addEventListener("mouseup", e => {
+    canvas.addEventListener("mouseleave", e => {
       onCanvas = false
-      savedX = e.pageX - bottomCanvas.offsetLeft
-      savedY = e.pageY - bottomCanvas.offsetTop
+      savedX = e.pageX - bounds.left
+      savedX /= bounds.width
+      savedX *= canvas.width
+      savedY = e.pageY - bounds.top
+      savedY /= bounds.height
+      savedY *= canvas.height
     })
-    bottomCanvas.addEventListener("mousemove", e => {
+
+    canvas.addEventListener("mousemove", e => {
       if (onCanvas) {
-        topCanvasCtx.globalCompositeOperation = "source-over"
-        bottomCanvasCtx.globalCompositeOperation = "destination-out"
-        let curX = e.pageX - bottomCanvas.offsetLeft
-        let curY = e.pageY - bottomCanvas.offsetTop
-        topCanvasCtx.lineJoin = "round"
-        topCanvasCtx.moveTo(savedX, savedY)
-        topCanvasCtx.lineTo(curX, curY)
-        topCanvasCtx.closePath()
-        topCanvasCtx.lineWidth = 100
-        topCanvasCtx.stroke()
+        ctx.globalCompositeOperation = "destination-out"
+        let curX = e.pageX - bounds.left
+        curX /= bounds.width
+        curX *= canvas.width
+        let curY = e.pageY - bounds.top
+        curY /= bounds.height
+        curY *= canvas.height
+        ctx.lineJoin = "round"
+        ctx.beginPath()
+        // ctx.arc(curX, curY, 25, 0, 2 * Math.PI)
+        ctx.moveTo(savedX, savedY)
+        ctx.lineTo(curX, curY)
+        ctx.closePath()
+        ctx.lineWidth = 70
+        ctx.stroke()
         savedX = curX
         savedY = curY
-        bottomCanvasCtx.drawImage(topCanvas, 0, 0)
       }
     })
   }
@@ -84,7 +96,11 @@ const Banner = () => {
       <BackgroundImage>
         <img src={backgroundImage} alt="AI app" />
       </BackgroundImage>
-      <Canvas width={size.width} height={size.height} ref={canvas} />
+      <canvas
+        width={`${size.width}px`}
+        height={`${size.height}px`}
+        ref={canvasRef}
+      />
       <BannerTitle variants={parent} initial="initial" animate="animate">
         <SmallHeadline variants={child}>
           What's on your client's mind?

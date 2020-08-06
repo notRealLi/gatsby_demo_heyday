@@ -7,6 +7,16 @@ export const StyledBanner = styled.div`
   height: 100vh;
   position: relative;
   /* margin-bottom: 296px; */
+
+  canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: block;
+    height: 100%;
+    /* test */
+    width: 100%;
+  }
 `
 
 export const BackgroundImage = styled.div`
