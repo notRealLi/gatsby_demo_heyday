@@ -65,6 +65,27 @@ const Banner = () => {
         savedY = curY
       }
     })
+    canvas.addEventListener("touchmove", e => {
+      if (onCanvas) {
+        ctx.globalCompositeOperation = "destination-out"
+        let curX = e.pageX - bounds.left
+        curX /= bounds.width
+        curX *= canvas.width
+        let curY = e.pageY - bounds.top
+        curY /= bounds.height
+        curY *= canvas.height
+        ctx.lineJoin = "round"
+        ctx.beginPath()
+        // ctx.arc(curX, curY, 25, 0, 2 * Math.PI)
+        ctx.moveTo(savedX, savedY)
+        ctx.lineTo(curX, curY)
+        ctx.closePath()
+        ctx.lineWidth = 70
+        ctx.stroke()
+        savedX = curX
+        savedY = curY
+      }
+    })
   }
 
   const parent = {
@@ -93,7 +114,16 @@ const Banner = () => {
 
   return (
     <StyledBanner>
-      <BackgroundImage>
+      <BackgroundImage
+        initial={{ opacity: 0 }}
+        animate={{
+          opacity: 1,
+          transition: {
+            duration: 1,
+            ease: [0.6, 0.05, -0.01, 0.9],
+          },
+        }}
+      >
         <img src={backgroundImage} alt="AI app" />
       </BackgroundImage>
       <canvas

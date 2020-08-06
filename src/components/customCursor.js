@@ -19,9 +19,11 @@ const CustomCursor = ({ navigationOpen }) => {
 
   useEffect(() => {
     document.addEventListener("mousemove", onMouseMove)
+    document.addEventListener("touchmove", onMouseMove)
 
     return () => {
       document.removeEventListener("mousemove", onMouseMove)
+      document.removeEventListener("touchmove", onMouseMove)
     }
   }, [])
 
